@@ -13,6 +13,10 @@ func main() {
 	userHeight = takePrompt("Укажите свой рост в сантиметрах")
 	userKg = takePrompt("Укажите свой вес в кг")
 	IMT := userKg / math.Pow(userHeight / 100, IMTPower)
+	outputResult(IMT)
+}
+
+func outputResult(IMT float64) {
 	fmt.Printf("Ваш индекс массы тела: %.0f", IMT)
 }
 
