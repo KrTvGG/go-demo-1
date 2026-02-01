@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
 )
@@ -16,7 +17,11 @@ func main() {
 		var userHeight, userKg float64
 		userHeight = takePrompt("Укажите свой рост в сантиметрах")
 		userKg = takePrompt("Укажите свой вес в кг")
-		IMT := calculateIMT(userHeight, userKg)
+		IMT, err := calculateIMT(userHeight, userKg)
+		if (err != nil) {
+			fmt.Println("Не заданы параметря для расчёта!")
+			continue
+		}
 		outputResult(IMT)
 		outputConclusion(IMT)
 		isRepeat := checkRepeatCalcelate()
@@ -59,9 +64,12 @@ func outputResult(IMT float64) {
 }
 
 /** Расчёт индекса массы тела */
-func calculateIMT(userHeight, userKg float64) float64 {
+func calculateIMT(userHeight, userKg float64) (float64, error) {
+	if userKg <= 0 || userHeight <= 0 {
+		return 0, errors.New("NO_PARAMS_ERROR")
+	}
 	IMT := userKg / math.Pow(userHeight / userHeightDivider, IMTPower)
-	return IMT
+	return IMT, nil
 }
 
 /** Выводит получаемый текст и сканирует результат из консоли */
