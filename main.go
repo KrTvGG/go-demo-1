@@ -19,8 +19,7 @@ func main() {
 		userKg = takePrompt("Укажите свой вес в кг")
 		IMT, err := calculateIMT(userHeight, userKg)
 		if (err != nil) {
-			fmt.Println("Не заданы параметря для расчёта!")
-			continue
+			panic("Не заданы параметры для расчёта!")
 		}
 		outputResult(IMT)
 		outputConclusion(IMT)
