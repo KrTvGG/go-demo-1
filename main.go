@@ -12,11 +12,33 @@ const userHeightDivider = 100
 
 func main() {
 	fmt.Println("__ Калькулятор индекса массы тела __")
-	var userHeight, userKg float64
-	userHeight = takePrompt("Укажите свой рост в сантиметрах")
-	userKg = takePrompt("Укажите свой вес в кг")
-	IMT := calculateIMT(userHeight, userKg)
-	outputResult(IMT)
+	for {
+		var userHeight, userKg float64
+		userHeight = takePrompt("Укажите свой рост в сантиметрах")
+		userKg = takePrompt("Укажите свой вес в кг")
+		IMT := calculateIMT(userHeight, userKg)
+		outputResult(IMT)
+		outputConclusion(IMT)
+		isRepeat := checkRepeatCalcelate()
+		if (!isRepeat) {
+			break
+		}
+	}
+}
+
+/** Повторять ли расчёт */
+func checkRepeatCalcelate() bool {
+	fmt.Println("Вы хотите повторить? (y / n)")
+	var repeat string
+	fmt.Scan(&repeat)
+	if (repeat == "y" || repeat == "Y") {
+		return true
+	}
+	return false
+}
+
+/** Вывод заключения по индексу массы тела */
+func outputConclusion(IMT float64) {
 	switch {
 	case IMT < 16:
 		fmt.Println("У вас сильный дефицит массы тела")
