@@ -12,6 +12,12 @@ const IMTPower = 2
 const userHeightDivider = 100
 
 func main() {
+	defer func() {
+		r := recover()
+		if recover() != nil {
+			fmt.Println("Recover ", r)
+		}
+	}()
 	fmt.Println("__ Калькулятор индекса массы тела __")
 	for {
 		var userHeight, userKg float64
